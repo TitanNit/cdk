@@ -250,7 +250,8 @@ libdpfax;ax;dpf-ax;dpf-ax.svn;extract:dpf-ax.svn
 # Security
 #
 openssl_old;0.9.8zf;openssl-0.9.8zf;openssl-0.9.8zf.tar.gz;extract:openssl-0.9.8zf.tar.gz;patch:openssl-0.9.8.patch;patch:openssl-0.9.8-parallel-build.patch
-openssl;1.0.2d;openssl-1.0.2d;openssl-1.0.2d.tar.gz;extract:openssl-1.0.2d.tar.gz;patch:openssl-1.0.2.patch
+#openssl;1.0.2d;openssl-1.0.2d;openssl-1.0.2d.tar.gz;extract:openssl-1.0.2d.tar.gz;patch:openssl-1.0.2.patch
+openssl;1.0.2e;openssl-1.0.2e;openssl-1.0.2e.tar.gz;extract:openssl-1.0.2e.tar.gz;patch:openssl-1.0.2.patch
 gnutls;3.4.3;gnutls-3.4.3;gnutls-3.4.3.tar.xz;extract:gnutls-3.4.3.tar.xz
 nettle;3.1;nettle-3.1;nettle-3.1.tar.gz;extract:nettle-3.1.tar.gz
 
