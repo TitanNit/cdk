@@ -42,6 +42,7 @@ jpegsrc.v8d.tar.gz;http://www.ijg.org/files
 libjpeg-turbo-1.4.0.tar.gz;http://sourceforge.net/projects/libjpeg-turbo/files/1.4.0
 libpng-1.2.50.tar.bz2;http://sourceforge.net/projects/libpng/files/libpng12/1.2.50
 libpng-1.6.18.tar.gz;http://sourceforge.net/projects/libpng/files/libpng16/1.6.18
+libpng-1.6.20.tar.gz;http://sourceforge.net/projects/libpng/files/libpng16/1.6.20
 tiff-4.0.3.tar.gz;http://download.osgeo.org/libtiff
 pixman-0.18.0.tar.gz;http://cairographics.org/releases
 
