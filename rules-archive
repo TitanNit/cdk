@@ -228,7 +228,8 @@ dpf-ax.svn;svn://svn.code.sf.net/p/dpf-ax/code/trunk
 # Security
 #
 openssl-0.9.8zf.tar.gz;ftp://ftp.openssl.org/source
-openssl-1.0.2d.tar.gz;ftp://ftp.openssl.org/source
+#openssl-1.0.2d.tar.gz;ftp://ftp.openssl.org/source
+openssl-1.0.2d.tar.gz;http://beta.dyndns.tv/githubarchive
 openssl-1.0.2e.tar.gz;ftp://ftp.openssl.org/source
 gnutls-3.4.3.tar.xz;ftp://ftp.gnutls.org/gcrypt/gnutls/v3.4
 nettle-3.1.tar.gz;https://ftp.gnu.org/gnu/nettle
