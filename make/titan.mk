@@ -6,12 +6,11 @@ yaud-titan: yaud-none \
 		boot-elf titan release_titan
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-TITAN_DEPS  = bootstrap openssl python
+TITAN_DEPS  = bootstrap openssl libcurl libfreetype libjpeg libpng ffmpeg titan-libdreamdvd $(MEDIAFW_DEP) tuxtxt32bpp
 
 # $(DEPDIR)/titan.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg libopenthreads libusb2 libalsa tuxtxt32bpp titan-libdreamdvd $(MEDIAFW_DEP)
 
-$(DEPDIR)/titan.do_prepare: | bootstrap libfreetype libjpeg libpng ffmpeg tuxtxt32bpp titan-libdreamdvd $(MEDIAFW_DEP)
-#$(DEPDIR)/titan.do_prepare: | bootstrap libfreetype libjpeg libpng ffmpeg titan-libdreamdvd $(MEDIAFW_DEP)
+$(DEPDIR)/titan.do_prepare: | $(TITAN_DEPS)
 	[ -d "$(appsdir)/titan" ] && \
 	(cd $(appsdir)/titan; svn up; cd "$(buildprefix)";); \
 	[ -d "$(appsdir)/titan" ] || \
@@ -53,7 +52,7 @@ $(appsdir)/titan/titan/config.status:
 			--build=$(build) \
 			--prefix=/usr/local \
 			--with-target=cdk \
-			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
 			CPPFLAGS="$(N_CPPFLAGS)"
