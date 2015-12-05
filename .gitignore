@@ -25,7 +25,6 @@ missing
 .deps/
 BUILD/
 BUILDLOG/
-own_build/
 linux-sh4*/
 busybox-*/
 custom/yaud-neutrino-*
