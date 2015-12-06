@@ -915,11 +915,19 @@ $(D)/libfdk_aac: $(D)/bootstrap @DEPENDS_libfdk_aac@
 #
 # ffmpeg
 #
-if ENABLE_ENIGMA2 || ENABLE_TITAN
+if ENABLE_ENIGMA2
 FFMPEG_EXTRA  = --enable-librtmp
 FFMPEG_EXTRA += --enable-protocol=librtmp --enable-protocol=librtmpe --enable-protocol=librtmps --enable-protocol=librtmpt --enable-protocol=librtmpte
 LIBRTMPDUMP = librtmpdump
-else
+endif
+
+if ENABLE_TITAN
+FFMPEG_EXTRA  = --enable-librtmp
+FFMPEG_EXTRA += --enable-protocol=librtmp --enable-protocol=librtmpe --enable-protocol=librtmps --enable-protocol=librtmpt --enable-protocol=librtmpte
+LIBRTMPDUMP = librtmpdump
+endif
+
+if ENABLE_NEUTRINO
 FFMPEG_EXTRA = --disable-iconv
 LIBXML2 = libxml2
 endif

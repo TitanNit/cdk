@@ -51,10 +51,7 @@ UFS910_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch
 
-UFS912_PATCHES_24 = $(COMMONPATCHES_24) \
-		linux-sh4-ufs912_setup_stm24$(PATCH_STR).patch \
-		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
-		linux-sh4-lmb_stm24$(PATCH_STR).patch
+UFS912_PATCHES_24 = $(COMMONPATCHES_24)
 
 UFS913_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs913_setup_stm24$(PATCH_STR).patch \
@@ -286,11 +283,15 @@ KERNELPATCHES_24 = \
 		$(if $(ARIVALINK200),$(ARIVALINK200_PATCHES_24)) \
 		$(if $(FORTIS_DP7000),$(FORTIS_DP7000_PATCHES_24))
 
+if ENABLE_ENIGMA2
+BUILDCONFIG=build-enigma2
+endif
+
 if ENABLE_TITAN
 BUILDCONFIG=build-titan
-else if ENABLE_ENIGMA2
-BUILDCONFIG=build-enigma2
-else
+endif
+
+if ENABLE_NEUTRINO
 BUILDCONFIG=build-neutrino
 endif
 
