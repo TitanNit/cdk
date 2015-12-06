@@ -989,9 +989,9 @@ endif
 	rm -f $(prefix)/release/usr/lib/libtermcap*
 	rm -f $(prefix)/release/usr/lib/libmenu*
 	rm -f $(prefix)/release/usr/lib/libpanel*
-	rm -f $(prefix)/release/usr/lib/libdvdcss*
+#	rm -f $(prefix)/release/usr/lib/libdvdcss*
 #	rm -f $(prefix)/release/usr/lib/libdvdnav*
-	rm -f $(prefix)/release/usr/lib/libdvdread*
+#	rm -f $(prefix)/release/usr/lib/libdvdread*
 	rm -f $(prefix)/release/usr/lib/libncurses*
 	rm -f $(prefix)/release/usr/lib/libthread_db*
 	rm -f $(prefix)/release/usr/lib/libanl*
