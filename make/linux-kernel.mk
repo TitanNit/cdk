@@ -288,7 +288,7 @@ KERNELPATCHES_24 = \
 
 if ENABLE_TITAN
 BUILDCONFIG=build-titan
-elif ENABLE_ENIGMA2
+else if ENABLE_ENIGMA2
 BUILDCONFIG=build-enigma2
 else
 BUILDCONFIG=build-neutrino
