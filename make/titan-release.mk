@@ -780,8 +780,12 @@ endif
 # lib usr/lib
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release/lib/
+	rm -f $(prefix)/release/lib/*.{a,o,la}
+	chmod 755 $(prefix)/release/lib/*
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release/usr/lib/
+	rm -rf $(prefix)/release/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11,lua}
+	rm -f $(prefix)/release/usr/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release/usr/lib/*
 
 #
