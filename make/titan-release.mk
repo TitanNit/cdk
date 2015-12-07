@@ -871,6 +871,32 @@ endif
 	fi
 
 #
+# DIRECTFB
+#
+	if [ -d $(prefix)/release/usr/lib/directfb-1.4-5 ]; then \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/gfxdrivers/*.{a,o,la}; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/inputdrivers/*; \
+		cp -a $(targetprefix)/usr/lib/directfb-1.4-5/inputdrivers/libdirectfb_enigma2remote.so $(prefix)/release/usr/lib/directfb-1.4-5/inputdrivers/; \
+		cp -a $(targetprefix)/usr/lib/directfb-1.4-5/inputdrivers/libdirectfb_linux_input.so $(prefix)/release/usr/lib/directfb-1.4-5/inputdrivers/; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/systems/*.{a,o,la}; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/systems/libdirectfb_dummy.so; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/systems/libdirectfb_fbdev.so; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/wm/*.{a,o,la}; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/interfaces/IDirectFBFont/*.{a,o,la}; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/interfaces/IDirectFBImageProvider/*.{a,o,la}; \
+		rm -rf $(prefix)/release/usr/lib/directfb-1.4-5/interfaces/IDirectFBVideoProvider/*.{a,o,la}; \
+	fi
+	if [ -d $(prefix)/release/usr/lib/icu ]; then \
+		rm -rf $(prefix)/release/usr/lib/icu; \
+	fi
+	if [ -d $(prefix)/release/usr/lib/glib-2.0 ]; then \
+		rm -rf $(prefix)/release/usr/lib/glib-2.0; \
+	fi
+	if [ -d $(prefix)/release/usr/lib/enchant ]; then \
+		rm -rf $(prefix)/release/usr/lib/enchant; \
+	fi
+
+#
 # udpxy
 #
 	if [ -e $(targetprefix)/usr/bin/udpxy ]; then \
