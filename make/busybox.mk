@@ -7,6 +7,7 @@ $(D)/busybox: $(D)/bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.co
 		patch -p1 < $(PATCHES)/busybox-1.24.1-ifupdown.patch && \
 		patch -p1 < $(PATCHES)/busybox-1.24.1-unicode.patch && \
 		patch -p1 < $(PATCHES)/busybox-1.24.1-extra.patch && \
+		patch -p1 < $(PATCHES)/busybox-1.24.1-mount_single_uuid.patch && \
 		$(INSTALL) -m644 $(lastword $^) .config && \
 		sed -i -e 's#^CONFIG_PREFIX.*#CONFIG_PREFIX="$(targetprefix)"#' .config
 	cd @DIR_busybox@ && \
