@@ -1026,6 +1026,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--enable-decoder=h263 \
 			--enable-decoder=h263i \
 			--enable-decoder=h264 \
+			--enable-decoder=iff_byterun1 \
 			--enable-decoder=mjpeg \
 			--enable-decoder=mp3 \
 			--enable-decoder=mpeg1video \
@@ -1039,6 +1040,9 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--enable-decoder=pcm_s16be_planar \
 			--enable-decoder=pgssub \
 			--enable-decoder=png \
+			--enable-decoder=ra_144 \
+			--enable-decoder=ra_288 \
+			--enable-decoder=rawvideo \
 			--enable-decoder=srt \
 			--enable-decoder=subrip \
 			--enable-decoder=subviewer \
@@ -1048,6 +1052,10 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--enable-decoder=vorbis \
 			--enable-decoder=wmv3 \
 			--enable-decoder=xsub \
+			--enable-decoder=wmapro \
+			--enable-decoder=wmav1 \
+			--enable-decoder=wmav2 \
+			--enable-decoder=wmavoice \
 			\
 			--disable-demuxers \
 			--enable-demuxer=aac \
