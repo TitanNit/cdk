@@ -1089,6 +1089,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--disable-protocols \
 			--enable-protocol=file \
 			--enable-protocol=http \
+			--enable-protocol=https \
 			--enable-protocol=mmsh \
 			--enable-protocol=mmst \
 			--enable-protocol=rtmp \
@@ -1098,6 +1099,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/libass $(LIBXML2) $(LIBRTMPDUMP) @
 			--enable-protocol=rtmpte \
 			--enable-protocol=rtmpts \
 			--enable-protocol=rtp \
+			--enable-protocol=rtps \
 			--enable-protocol=tcp \
 			--enable-protocol=udp \
 			\
