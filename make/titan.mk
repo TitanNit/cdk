@@ -2,7 +2,7 @@
 # titan
 #
 
-yaud-titan: yaud-none \
+yaud-titan: yaud-none lirc \
 		boot-elf titan release_titan
 	@TUXBOX_YAUD_CUSTOMIZE@
 
