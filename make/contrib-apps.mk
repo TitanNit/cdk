@@ -398,7 +398,7 @@ $(D)/fuse: $(D)/bootstrap @DEPENDS_fuse@
 #
 # curlftpfs
 #
-$(D)/curlftpfs: $(D)/bootstrap $(D)/fuse @DEPENDS_curlftpfs@
+$(D)/curlftpfs: $(D)/bootstrap $(D)/glib2 $(D)/fuse @DEPENDS_curlftpfs@
 	@PREPARE_curlftpfs@
 	cd @DIR_curlftpfs@ && \
 		export ac_cv_func_malloc_0_nonnull=yes && \
