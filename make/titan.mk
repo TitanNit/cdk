@@ -6,7 +6,7 @@ yaud-titan: yaud-none lirc \
 		boot-elf titan release_titan
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-TITAN_DEPS  = bootstrap libcurl libfreetype libjpeg libpng ffmpeg titan-libdreamdvd $(MEDIAFW_DEP) tuxtxt32bpp
+TITAN_DEPS  = bootstrap libcurl rarfs curlftpfs djmount libfreetype libjpeg libpng ffmpeg titan-libdreamdvd $(MEDIAFW_DEP) tuxtxt32bpp
 
 # $(DEPDIR)/titan.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg libopenthreads libusb2 libalsa tuxtxt32bpp titan-libdreamdvd $(MEDIAFW_DEP)
 

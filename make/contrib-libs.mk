@@ -924,8 +924,8 @@ endif
 if ENABLE_TITAN
 FFMPEG_EXTRA  = --enable-librtmp
 FFMPEG_EXTRA += --disable-iconv --enable-protocol=librtmp --enable-protocol=librtmpe --enable-protocol=librtmps --enable-protocol=librtmpt --enable-protocol=librtmpte
-LIBRTMPDUMP = librtmpdump
-LIBXML2 = libxml2
+#LIBRTMPDUMP = librtmpdump
+#LIBXML2 = libxml2
 endif
 
 if ENABLE_NEUTRINO
