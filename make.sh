@@ -356,7 +356,7 @@ case "$REPLY" in
 	3) IMAGE="--enable-neutrino";;
 	4) IMAGE="--enable-neutrino --enable-wlandriver";;
 	5) IMAGE="--enable-tvheadend";;
-	6) IMAGE="--enable-titan";;
+	6) IMAGE="--enable-titan --enable-wlandriver";;
 	*) IMAGE="--enable-neutrino";;
 esac
 
