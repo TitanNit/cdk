@@ -121,7 +121,7 @@ UFS922_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
 
 UFC960_PATCHES_24 = $(COMMONPATCHES_24) \
-		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
+		linux-sh4-ufc960_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
