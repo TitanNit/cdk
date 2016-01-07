@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.32.61
-# Sat Jun 14 09:38:46 2014
+# Wed Jan  6 16:04:16 2016
 #
 CONFIG_SUPERH=y
 CONFIG_SUPERH32=y
@@ -81,7 +81,7 @@ CONFIG_UID16=y
 CONFIG_SYSCTL_SYSCALL=y
 # CONFIG_KALLSYMS is not set
 CONFIG_HOTPLUG=y
-# CONFIG_PRINTK is not set
+CONFIG_PRINTK=y
 # CONFIG_BUG is not set
 # CONFIG_ELF_CORE is not set
 CONFIG_BASE_FULL=y
@@ -1596,6 +1596,7 @@ CONFIG_NLS_ISO8859_1=y
 # Kernel hacking
 #
 CONFIG_TRACE_IRQFLAGS_SUPPORT=y
+# CONFIG_PRINTK_TIME is not set
 # CONFIG_ENABLE_WARN_DEPRECATED is not set
 # CONFIG_ENABLE_MUST_CHECK is not set
 CONFIG_FRAME_WARN=1024
