@@ -91,12 +91,12 @@
 +	},
 +	{
 +		.name = "Root",
-+		.size = 0x960000,
++		.size = 0x980000,
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{
 +		.name = "Var",
-+		.size = 0x300000, 
++		.size = 0x280000, 
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{	
