@@ -96,7 +96,7 @@
 +	},
 +	{
 +		.name = "Var",
-+		.size = 0x360000, 
++		.size = 0x300000, 
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{	
