@@ -49,6 +49,10 @@ ifeq ($(IMAGE), $(filter $(IMAGE), neutrino neutrino-wlandriver))
 	@echo "LOCAL_NEUTRINO_BUILD_OPTIONS :  $(LOCAL_NEUTRINO_BUILD_OPTIONS)"
 	@echo "LOCAL_NEUTRINO_CFLAGS        :  $(LOCAL_NEUTRINO_CFLAGS)"
 	@echo "LOCAL_NEUTRINO_DEPS          :  $(LOCAL_NEUTRINO_DEPS)"
+else ifeq ($(IMAGE), $(filter $(IMAGE), titan titan-wlandriver))
+	@echo "LOCAL_TITAN_BUILD_OPTIONS :  $(LOCAL_TITAN_BUILD_OPTIONS)"
+	@echo "LOCAL_TITAN_CFLAGS        :  $(LOCAL_TITAN_CFLAGS)"
+	@echo "LOCAL_TITAN_DEPS          :  $(LOCAL_TITAN_DEPS)"
 else ifeq ($(IMAGE), $(filter $(IMAGE), enigma2 enigma2-wlandriver))
 	@echo "LOCAL_ENIGMA2_BUILD_OPTIONS  :  $(LOCAL_ENIGMA2_BUILD_OPTIONS)"
 	@echo "LOCAL_ENIGMA2_CPPFLAGS       :  $(LOCAL_ENIGMA2_CPPFLAGS)"
@@ -99,6 +103,8 @@ include make/enigma2-release.mk
 include make/neutrino.mk
 include make/neutrino-plugins.mk
 include make/neutrino-release.mk
+include make/titan.mk
+include make/titan-release.mk
 include make/cleantargets.mk
 include make/patches.mk
 include make/yaud.mk

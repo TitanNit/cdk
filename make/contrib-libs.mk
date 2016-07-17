@@ -1205,6 +1205,11 @@ FFMPEG_EXTRA  = --enable-librtmp
 LIBRTMPDUMP = $(D)/librtmpdump
 endif
 
+ifeq ($(IMAGE), titan)
+FFMPEG_EXTRA  = --enable-librtmp
+LIBRTMPDUMP = $(D)/librtmpdump
+endif
+
 ifeq ($(IMAGE), neutrino)
 FFMPEG_EXTRA = --disable-iconv
 endif

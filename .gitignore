@@ -1,9 +1,11 @@
 BUILDLOG/
 custom/yaud-neutrino-*
 custom/yaud-enigma2-*
+custom/yaud-titan-*
 custom/release_*
 own_build/
 Patches/patch-neutrino/
+Patches/patch-titan/
 root/boot/*
 .deps/
 config*
