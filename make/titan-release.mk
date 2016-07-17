@@ -5,7 +5,7 @@
 #
 # release_cube_common
 #
-release_neutrino_cube_common:
+release_titan_cube_common:
 	install -m 0755 $(SKEL_ROOT)/release/halt_cuberevo $(RELEASE_DIR)/etc/init.d/halt
 	install -m 0777 $(SKEL_ROOT)/release/reboot_cuberevo $(RELEASE_DIR)/etc/init.d/reboot
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(RELEASE_DIR)/lib/modules/
@@ -19,62 +19,62 @@ release_neutrino_cube_common:
 #
 # release_cube_common_tuner
 #
-release_neutrino_cube_common_tuner:
+release_titan_cube_common_tuner:
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontends/multituner/*.ko $(RELEASE_DIR)/lib/modules/
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/kernel/drivers/media/dvb/frontends/dvb-pll.ko $(RELEASE_DIR)/lib/modules/
 
 #
 # release_cuberevo_9500hd
 #
-release_neutrino_cuberevo_9500hd: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_9500hd: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-9500hd" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_2000hd
 #
-release_neutrino_cuberevo_2000hd: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_2000hd: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-2000hd" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_250hd
 #
-release_neutrino_cuberevo_250hd: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_250hd: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-250hd" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_mini_fta
 #
-release_neutrino_cuberevo_mini_fta: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_mini_fta: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-mini-fta" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_mini2
 #
-release_neutrino_cuberevo_mini2: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_mini2: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-mini2" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_mini
 #
-release_neutrino_cuberevo_mini: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_mini: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-mini" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo
 #
-release_neutrino_cuberevo: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_cuberevo_3000hd
 #
-release_neutrino_cuberevo_3000hd: release_neutrino_cube_common release_neutrino_cube_common_tuner
+release_titan_cuberevo_3000hd: release_titan_cube_common release_titan_cube_common_tuner
 	echo "cuberevo-3000hd" > $(RELEASE_DIR)/etc/hostname
 
 #
 # release_common_ipbox
 #
-release_neutrino_common_ipbox:
+release_titan_common_ipbox:
 	install -m 0755 $(SKEL_ROOT)/release/halt_ipbox $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontends/*.ko $(RELEASE_DIR)/lib/modules/
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(RELEASE_DIR)/lib/modules/
@@ -96,7 +96,7 @@ release_neutrino_common_ipbox:
 #
 # release_ipbox9900
 #
-release_neutrino_ipbox9900: release_neutrino_common_ipbox
+release_titan_ipbox9900: release_titan_common_ipbox
 	echo "ipbox9900" > $(RELEASE_DIR)/etc/hostname
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/ipbox99xx/micom.ko $(RELEASE_DIR)/lib/modules/
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/rmu/rmu.ko $(RELEASE_DIR)/lib/modules/
@@ -105,7 +105,7 @@ release_neutrino_ipbox9900: release_neutrino_common_ipbox
 #
 # release_ipbox99
 #
-release_neutrino_ipbox99: release_neutrino_common_ipbox
+release_titan_ipbox99: release_titan_common_ipbox
 	echo "ipbox99" > $(RELEASE_DIR)/etc/hostname
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/ipbox99xx/micom.ko $(RELEASE_DIR)/lib/modules/
 	cp -p $(SKEL_ROOT)/release/tvmode_ipbox $(RELEASE_DIR)/usr/bin/tvmode
@@ -113,7 +113,7 @@ release_neutrino_ipbox99: release_neutrino_common_ipbox
 #
 # release_ipbox55
 #
-release_neutrino_ipbox55: release_neutrino_common_ipbox
+release_titan_ipbox55: release_titan_common_ipbox
 	echo "ipbox55" > $(RELEASE_DIR)/etc/hostname
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/ipbox55/front.ko $(RELEASE_DIR)/lib/modules/
 	cp -p $(SKEL_ROOT)/release/tvmode_ipbox55 $(RELEASE_DIR)/usr/bin/tvmode
@@ -121,7 +121,7 @@ release_neutrino_ipbox55: release_neutrino_common_ipbox
 #
 # release_ufs910
 #
-release_neutrino_ufs910:
+release_titan_ufs910:
 	echo "ufs910" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/vfd/vfd.ko $(RELEASE_DIR)/lib/modules/
@@ -137,7 +137,7 @@ release_neutrino_ufs910:
 #
 # release_ufs912
 #
-release_neutrino_ufs912:
+release_titan_ufs912:
 	echo "ufs912" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs912 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/micom/micom.ko $(RELEASE_DIR)/lib/modules/
@@ -150,7 +150,7 @@ release_neutrino_ufs912:
 #
 # release_ufs913
 #
-release_neutrino_ufs913:
+release_titan_ufs913:
 	echo "ufs913" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs912 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/micom/micom.ko $(RELEASE_DIR)/lib/modules/
@@ -164,7 +164,7 @@ release_neutrino_ufs913:
 #
 # release_ufs922
 #
-release_neutrino_ufs922:
+release_titan_ufs922:
 	echo "ufs922" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/micom/micom.ko $(RELEASE_DIR)/lib/modules/
@@ -181,7 +181,7 @@ release_neutrino_ufs922:
 #
 # release_ufc960
 #
-release_neutrino_ufc960:
+release_titan_ufc960:
 	echo "ufc960" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/micom/micom.ko $(RELEASE_DIR)/lib/modules/
@@ -195,7 +195,7 @@ release_neutrino_ufc960:
 #
 # release_spark
 #
-release_neutrino_spark:
+release_titan_spark:
 	echo "spark" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_spark $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/aotom_spark/aotom.ko $(RELEASE_DIR)/lib/modules/
@@ -212,7 +212,7 @@ release_neutrino_spark:
 #
 # release_spark7162
 #
-release_neutrino_spark7162:
+release_titan_spark7162:
 	echo "spark7162" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_spark7162 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/aotom_spark/aotom.ko $(RELEASE_DIR)/lib/modules/
@@ -229,7 +229,7 @@ release_neutrino_spark7162:
 #
 # release_fortis_hdbox
 #
-release_neutrino_fortis_hdbox:
+release_titan_fortis_hdbox:
 	echo "fortis" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_fortis_hdbox $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -241,7 +241,7 @@ release_neutrino_fortis_hdbox:
 #
 # release_atevio7500
 #
-release_neutrino_atevio7500:
+release_titan_atevio7500:
 	echo "atevio7500" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_fortis_hdbox $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -258,7 +258,7 @@ release_neutrino_atevio7500:
 #
 # release_octagon1008
 #
-release_neutrino_octagon1008:
+release_titan_octagon1008:
 	echo "octagon1008" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_octagon1008 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -272,7 +272,7 @@ release_neutrino_octagon1008:
 #
 # release_hs7110
 #
-release_neutrino_hs7110:
+release_titan_hs7110:
 	echo "hs7110" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hs7110 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -286,7 +286,7 @@ release_neutrino_hs7110:
 #
 # release_hs7420
 #
-release_neutrino_hs7420: release_enigma2_common_utils
+release_titan_hs7420: release_enigma2_common_utils
 	echo "hs7420" > $(RELEASE_DIR)/release/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hs742x $(RELEASE_DIR)/etc/init.d/halt
 	chmod 755 $(RELEASE_DIR)/etc/init.d/halt
@@ -301,7 +301,7 @@ release_neutrino_hs7420: release_enigma2_common_utils
 #
 # release_hs7429
 #
-release_neutrino_hs7429: release_enigma2_common_utils
+release_titan_hs7429: release_enigma2_common_utils
 	echo "hs7429" > $(RELEASE_DIR)/release/etc/hostname
 	install -m 0755 $(SKEL_ROOT)release/halt_hs742x $(RELEASE_DIR)/etc/init.d/halt
 	chmod 755 $(RELEASE_DIR)/etc/init.d/halt
@@ -316,7 +316,7 @@ release_neutrino_hs7429: release_enigma2_common_utils
 #
 # release_hs7810a
 #
-release_neutrino_hs7810a:
+release_titan_hs7810a:
 	echo "hs7810a" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hs7810a $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -330,7 +330,7 @@ release_neutrino_hs7810a:
 #
 # release_hs7119
 #
-release_neutrino_hs7119:
+release_titan_hs7119:
 	echo "hs7119" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hs7119 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -344,7 +344,7 @@ release_neutrino_hs7119:
 #
 # release_hs7819
 #
-release_neutrino_hs7819:
+release_titan_hs7819:
 	echo "hs7819" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hs7819 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(RELEASE_DIR)/lib/modules/
@@ -358,7 +358,7 @@ release_neutrino_hs7819:
 #
 # release_atemio520
 #
-release_neutrino_atemio520:
+release_titan_atemio520:
 	echo "atemio520" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_atemio520 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/cn_micom/cn_micom.ko $(RELEASE_DIR)/lib/modules/
@@ -372,7 +372,7 @@ release_neutrino_atemio520:
 #
 # release_atemio530
 #
-release_neutrino_atemio530:
+release_titan_atemio530:
 	echo "atemio530" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_atemio530 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/cn_micom/cn_micom.ko $(RELEASE_DIR)/lib/modules/
@@ -386,7 +386,7 @@ release_neutrino_atemio530:
 #
 # release_hl101
 #
-release_neutrino_hl101:
+release_titan_hl101:
 	echo "hl101" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_hl101 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/proton/proton.ko $(RELEASE_DIR)/lib/modules/
@@ -402,7 +402,7 @@ release_neutrino_hl101:
 #
 # release_adb_box
 #
-release_neutrino_adb_box:
+release_titan_adb_box:
 	echo "Adb_Box" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_adb_box $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/adb_box_vfd/vfd.ko $(RELEASE_DIR)/lib/modules/
@@ -424,7 +424,7 @@ release_neutrino_adb_box:
 #
 # release_tf7700
 #
-release_neutrino_tf7700:
+release_titan_tf7700:
 	echo "tf7700" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_tf7700 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontcontroller/tffp/tffp.ko $(RELEASE_DIR)/lib/modules/
@@ -437,7 +437,7 @@ release_neutrino_tf7700:
 #
 # release_vitamin_hd5000
 #
-release_neutrino_vitamin_hd5000:
+release_titan_vitamin_hd5000:
 	echo "vitamin_hd5000" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs912 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(RELEASE_DIR)/lib/modules/
@@ -451,7 +451,7 @@ release_neutrino_vitamin_hd5000:
 #
 # release_sagemcom88
 #
-release_neutrino_sagemcom88:
+release_titan_sagemcom88:
 	echo "sagemcom88" > $(RELEASE_DIR)/etc/hostname
 	install -m 0755 $(SKEL_ROOT)/release/halt_ufs912 $(RELEASE_DIR)/etc/init.d/halt
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/stgfb/stmfb/stmcore-display-sti7105.ko $(RELEASE_DIR)/lib/modules/
@@ -474,7 +474,7 @@ release_neutrino_sagemcom88:
 #
 # release_arivalink200
 #
-release_neutrino_arivalink200:
+release_titan_arivalink200:
 	echo "Ariva@Link200" > $(RELEASE_DIR)/etc/hostname
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(RELEASE_DIR)/lib/modules/
 	cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/frontends/*.ko $(RELEASE_DIR)/lib/modules/
@@ -495,7 +495,7 @@ release_neutrino_arivalink200:
 # release_base
 #
 # the following target creates the common file base
-release_neutrino_base:
+release_titan_base:
 	rm -rf $(RELEASE_DIR) || true
 	install -d $(RELEASE_DIR)
 	install -d $(RELEASE_DIR)/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,swap,sys,tmp,usr,var}
@@ -508,9 +508,9 @@ release_neutrino_base:
 	install -d $(RELEASE_DIR)/usr/{bin,lib,local,sbin,share}
 	install -d $(RELEASE_DIR)/usr/local/{bin,sbin}
 	install -d $(RELEASE_DIR)/usr/share/{fonts,tuxbox,udhcpc,zoneinfo}
-	install -d $(RELEASE_DIR)/usr/share/tuxbox/neutrino
-	install -d $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/logo
-	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(RELEASE_DIR)/logos
+	install -d $(RELEASE_DIR)/usr/share/tuxbox/titan
+	install -d $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/logo
+	ln -sf /usr/share/tuxbox/titan/icons/logo $(RELEASE_DIR)/logos
 	ln -sf /usr/share $(RELEASE_DIR)/share
 	install -d $(RELEASE_DIR)/var/{bin,boot,etc,httpd,lib,tuxbox,update}
 	install -d $(RELEASE_DIR)/var/lib/nfs
@@ -530,7 +530,7 @@ release_neutrino_base:
 	ln -s ../init.d/sendsigs $(RELEASE_DIR)/etc/rc.d/rc6.d/S20sendsigs
 	ln -s ../init.d/umountfs $(RELEASE_DIR)/etc/rc.d/rc6.d/S40umountfs
 	ln -s ../init.d/reboot $(RELEASE_DIR)/etc/rc.d/rc6.d/S90reboot
-	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(RELEASE_DIR)/var/httpd/logos
+	ln -sf /usr/share/tuxbox/titan/icons/logo $(RELEASE_DIR)/var/httpd/logos
 	touch $(RELEASE_DIR)/var/etc/.firstboot
 	cp -a $(TARGETPREFIX)/bin/* $(RELEASE_DIR)/bin/
 	cp -a $(TARGETPREFIX)/sbin/* $(RELEASE_DIR)/sbin/
@@ -559,7 +559,7 @@ release_neutrino_base:
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), atevio7500 fortis_hdbox octagon1008 ufs910 ufs912 ufs913 ufs922 ufs960 spark spark7162 ipbox55 ipbox99 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250 hd cuberevo_2000hd cuberevo_3000hd adb_box tf7700 vitamin_hd5000))
 	cp $(SKEL_ROOT)/release/fw_env.config_$(BOXTYPE) $(RELEASE_DIR)/etc/fw_env.config
 endif
-	install -m 0755 $(SKEL_ROOT)/release/rcS_neutrino_$(BOXTYPE) $(RELEASE_DIR)/etc/init.d/rcS
+	install -m 0755 $(SKEL_ROOT)/release/rcS_titan_$(BOXTYPE) $(RELEASE_DIR)/etc/init.d/rcS
 #
 # player
 #
@@ -657,7 +657,7 @@ endif
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8188eu/8188eu.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8188eu/8188eu.ko $(RELEASE_DIR)/lib/modules/ || true
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192cu/8192cu.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192cu/8192cu.ko $(RELEASE_DIR)/lib/modules/ || true
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko $(RELEASE_DIR)/release/lib/modules || true
-ifeq ($(IMAGE), $(filter $(IMAGE), enigma2-wlandriver neutrino-wlandriver))
+ifeq ($(IMAGE), $(filter $(IMAGE), enigma2-wlandriver titan-wlandriver))
 	install -d $(RELEASE_DIR)/etc/Wireless
 	cp -aR $(SKEL_ROOT)/firmware/Wireless/* $(RELEASE_DIR)/etc/Wireless/
 	cp -dp $(TARGETPREFIX)/usr/sbin/ifrename $(RELEASE_DIR)/usr/sbin/
@@ -685,8 +685,8 @@ endif
 #
 # fonts
 #
-	if [ -e $(TARGETPREFIX)/usr/share/fonts/neutrino.ttf ]; then \
-		cp -aR $(TARGETPREFIX)/usr/share/fonts/neutrino.ttf $(RELEASE_DIR)/usr/share/fonts; \
+	if [ -e $(TARGETPREFIX)/usr/share/fonts/titan.ttf ]; then \
+		cp -aR $(TARGETPREFIX)/usr/share/fonts/titan.ttf $(RELEASE_DIR)/usr/share/fonts; \
 	fi
 	if [ -e $(TARGETPREFIX)/usr/share/fonts/micron.ttf ]; then \
 		cp -aR $(TARGETPREFIX)/usr/share/fonts/micron.ttf $(RELEASE_DIR)/usr/share/fonts; \
@@ -696,10 +696,10 @@ endif
 		ln -s /usr/share/fonts/DejaVuLGCSansMono-Bold.ttf $(RELEASE_DIR)/usr/share/fonts/tuxtxt.ttf; \
 	fi
 #
-# neutrino
+# titan
 #
 	ln -sf /usr/share $(RELEASE_DIR)/usr/local/share
-	cp $(TARGETPREFIX)/usr/local/bin/neutrino $(RELEASE_DIR)/usr/local/bin/
+	cp $(TARGETPREFIX)/usr/local/bin/titan $(RELEASE_DIR)/usr/local/bin/
 	cp $(TARGETPREFIX)/usr/local/bin/pzapit $(RELEASE_DIR)/usr/local/bin/
 	cp $(TARGETPREFIX)/usr/local/bin/sectionsdcontrol $(RELEASE_DIR)/usr/local/bin/
 	if [ -e $(TARGETPREFIX)/usr/local/bin/install.sh ]; then \
@@ -722,9 +722,9 @@ endif
 #
 	cp -aR $(TARGETPREFIX)/var/tuxbox/config/* $(RELEASE_DIR)/var/tuxbox/config
 #
-# copy root_neutrino
+# copy root_titan
 #
-	cp -aR $(SKEL_ROOT)/root_neutrino/* $(RELEASE_DIR)/
+	cp -aR $(SKEL_ROOT)/root_titan/* $(RELEASE_DIR)/
 ifneq ($(BOXTYPE), $(filter $(BOXTYPE), atevio7500 spark7162 cuberevo_mini2 cuberevo_3000hd))
 	rm -f $(RELEASE_DIR)/var/tuxbox/config/cables.xml
 	rm -f $(RELEASE_DIR)/var/tuxbox/config/terrestrial.xml
@@ -736,7 +736,7 @@ endif
 #
 # httpd/icons/locale/themes
 #
-	cp -aR $(TARGETPREFIX)/usr/share/tuxbox/neutrino/* $(RELEASE_DIR)/usr/share/tuxbox/neutrino
+	cp -aR $(TARGETPREFIX)/usr/share/tuxbox/titan/* $(RELEASE_DIR)/usr/share/tuxbox/titan
 #
 # backup/restore NMP
 #
@@ -846,7 +846,7 @@ endif
 		cp -f $(TARGETPREFIX)/usr/lib/libmDNSResponder.so* $(RELEASE_DIR)/usr/lib; \
 	fi
 #
-# Neutrino HD2 Workaround Build in Player
+# titan HD2 Workaround Build in Player
 #
 	if [ -e $(TARGETPREFIX)/usr/local/bin/eplayer3 ]; then \
 		cp -f $(TARGETPREFIX)/usr/local/bin/eplayer3 $(RELEASE_DIR)/bin/; \
@@ -896,17 +896,17 @@ endif
 # The main target depends on the model.
 # IMPORTANT: it is assumed that only one variable is set. Otherwise the target name won't be resolved.
 #
-$(D)/release_neutrino: \
-$(D)/%release_neutrino: release_neutrino_base release_neutrino_$(BOXTYPE)
+$(D)/release_titan: \
+$(D)/%release_titan: release_titan_base release_titan_$(BOXTYPE)
 	$(TUXBOX_CUSTOMIZE)
 	touch $@
 #
-# FOR YOUR OWN CHANGES use these folder in cdk/own_build/neutrino-hd
+# FOR YOUR OWN CHANGES use these folder in cdk/own_build/titan-hd
 #
 #	default for all receiver
-	find $(CDK_DIR)/own_build/neutrino-hd/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} +
+	find $(CDK_DIR)/own_build/titan-hd/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} +
 #	receiver specific (only if directory exist)
-	[ -d "$(CDK_DIR)/own_build/neutrino-hd.$(BOXTYPE)" ] && find $(CDK_DIR)/own_build/neutrino-hd.$(BOXTYPE)/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} + || true
+	[ -d "$(CDK_DIR)/own_build/titan-hd.$(BOXTYPE)" ] && find $(CDK_DIR)/own_build/titan-hd.$(BOXTYPE)/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} + || true
 	echo $(BOXTYPE) > $(RELEASE_DIR)/etc/model
 	rm -f $(RELEASE_DIR)/for_your_own_changes
 #
@@ -923,24 +923,24 @@ $(D)/%release_neutrino: release_neutrino_base release_neutrino_$(BOXTYPE)
 	ln -s /tmp $(RELEASE_DIR)/var/run
 	ln -s /tmp $(RELEASE_DIR)/var/tmp
 #
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/scan.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/scan.jpg $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/mp3.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/mp3.jpg $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/mp3-?.jpg
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/shutdown.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/shutdown.jpg $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/radiomode.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/radiomode.jpg $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/start.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/start.jpg $(RELEASE_DIR)/usr/share/tuxbox/neutrino/icons/
+	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/scan.jpg $(RELEASE_DIR)/var/boot/
+	ln -s /var/boot/scan.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3.jpg $(RELEASE_DIR)/var/boot/
+	ln -s /var/boot/mp3.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3-?.jpg
+	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/shutdown.jpg $(RELEASE_DIR)/var/boot/
+	ln -s /var/boot/shutdown.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/radiomode.jpg $(RELEASE_DIR)/var/boot/
+	ln -s /var/boot/radiomode.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/start.jpg $(RELEASE_DIR)/var/boot/
+	ln -s /var/boot/start.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
 #
 	rm -f $(RELEASE_DIR)/bin/pic2m2v
 	rm -f $(RELEASE_DIR)/usr/lib/*.py
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v?.*
+	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_cst_v?.*
 ifneq ($(BOXTYPE), $(filter $(BOXTYPE), spark spark7162))
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/httpd/images/rc_spark_new.jpg
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/neutrino/httpd/images/rc_spark_old.jpg
+	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_new.jpg
+	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_old.jpg
 endif
 #
 # sh4-linux-strip all
@@ -951,5 +951,5 @@ endif
 #
 # release-clean
 #
-release-neutrino-clean:
-	rm -f $(D)/release_neutrino
+release-titan-clean:
+	rm -f $(D)/release_titan
