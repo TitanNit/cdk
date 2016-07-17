@@ -62,6 +62,9 @@ include make/neutrino-plugins.mk
 # Include tvheadend targets
 include make/tvheadend.mk
 
+# Include titan targets
+include make/titan.mk
+
 # A number of cleaning targets
 include make/cleantargets.mk
 
@@ -77,6 +80,8 @@ include make/enigma2-release.mk
 include make/neutrino-release.mk
 
 include make/tvheadend-release.mk
+
+include make/titan-release.mk
 
 #keeping all patches in one file
 include make/patches.mk

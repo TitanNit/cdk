@@ -29,7 +29,11 @@ COMMONPATCHES_24 = \
 		$(if $(P0215)$(P0217),linux-patch_swap_notify_core_support_stm24$(PATCH_STR).patch) \
 		$(if $(P0209),linux-sh4-dwmac_stm24_0209.patch) \
 		$(if $(P0209),linux-sh4-directfb_stm24$(PATCH_STR).patch) \
-		$(if $(P0211)$(P0214)$(P0215)$(P0217),linux-sh4-console_missing_argument_stm24$(PATCH_STR).patch)
+		$(if $(P0211)$(P0214)$(P0215)$(P0217),linux-sh4-console_missing_argument_stm24$(PATCH_STR).patch) \
+		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
+		linux-squashfs3.0_lzma_stm24.patch \
+		linux-squashfs-downgrade-stm24-2.6.25.patch \
+		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
 #		$(if $(P0209)$(P0211),linux-sh4-remove_pcm_reader_stm24.patch)
 
@@ -102,21 +106,13 @@ ATEMIO520_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-atemio520_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
-		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
-		linux-squashfs3.0_lzma_stm23.patch \
-		linux-squashfs-downgrade-stm24-patch-2.6.25 \
-		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
+		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch)
 
 ATEMIO530_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-atemio530_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
-		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
-		linux-squashfs3.0_lzma_stm23.patch \
-		linux-squashfs-downgrade-stm24-patch-2.6.25 \
-		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
+		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch)
 
 UFS922_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
@@ -125,7 +121,7 @@ UFS922_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
 
 UFC960_PATCHES_24 = $(COMMONPATCHES_24) \
-		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
+		linux-sh4-ufc960_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
@@ -288,7 +284,13 @@ KERNELPATCHES_24 = \
 
 if ENABLE_ENIGMA2
 BUILDCONFIG=build-enigma2
-else
+endif
+
+if ENABLE_TITAN
+BUILDCONFIG=build-titan
+endif
+
+if ENABLE_NEUTRINO
 BUILDCONFIG=build-neutrino
 endif
 

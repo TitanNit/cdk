@@ -339,13 +339,14 @@ esac
 ##############################################
 
 case $7 in
-	[1-5]) REPLY=$7;;
+	[1-6]) REPLY=$7;;
 	*)	echo -e "\nWhich Image do you want to build:"
 		echo "   1) Enigma2"
 		echo "   2) Enigma2 (includes WLAN drivers)"
 		echo "   3) Neutrino"
 		echo "   4) Neutrino (includes WLAN drivers)"
 		echo "   5) Tvheadend"
+		echo "   6) TitanNit"
 		read -p "Select Image to build (1-5)? ";;
 esac
 
@@ -355,6 +356,7 @@ case "$REPLY" in
 	3) IMAGE="--enable-neutrino";;
 	4) IMAGE="--enable-neutrino --enable-wlandriver";;
 	5) IMAGE="--enable-tvheadend";;
+	6) IMAGE="--enable-titan --enable-wlandriver";;
 	*) IMAGE="--enable-neutrino";;
 esac
 

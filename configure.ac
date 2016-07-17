@@ -45,6 +45,14 @@ AC_ARG_ENABLE(tvheadend,
 AM_CONDITIONAL(ENABLE_TVHEADEND,test "$enable_tvheadend" = "yes")
 AC_SUBST(TVHEADEND)
 
+AC_ARG_ENABLE(titan,
+	AS_HELP_STRING(--enable-titan, Setting up the CDK to build titan),
+	[case "${enableval}" in
+		yes) TITAN=titan ;;
+	esac],[enable_titan=no])
+AM_CONDITIONAL(ENABLE_TITAN,test "$enable_titan" = "yes")
+AC_SUBST(TITAN)
+
 AC_ARG_ENABLE(wlandriver,
 	AS_HELP_STRING(--enable-wlandriver, Setting up the CDK to build WLAN drivers),
 	[case "${enableval}" in
