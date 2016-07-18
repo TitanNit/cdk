@@ -1,0 +1,137 @@
+--- busybox/shell/ash.c	2015-10-24 02:24:36.000000000 +0200
++++ busybox/shell/ash.c.patched	2015-12-11 14:48:58.000000000 +0100
+@@ -9074,6 +9074,122 @@
+ static int FAST_FUNC testcmd(int argc, char **argv)   { return test_main(argc, argv); }
+ #endif
+ 
++//NIT
++int insmod_main(int argc, char **argv);
++static int FAST_FUNC insmodcmd(int argc, char **argv) { return insmod_main(argc, argv); }
++
++int mount_main(int argc, char **argv);
++static int FAST_FUNC mountcmd(int argc, char **argv) { return mount_main(argc, argv); }
++
++static int FAST_FUNC devtarcmd(int argc UNUSED_PARAM, char **argv UNUSED_PARAM)
++{
++	int ret = 0, err = 0, len = 0, type = 0, major = 0, minor = 0;
++	FILE *fd = NULL;
++	char* fileline = NULL, *from = NULL, *to = NULL;
++	
++	fileline = malloc(4096);
++	if(fileline == NULL)
++	{
++		ret = 1;
++		goto end;
++	}
++	
++	from = malloc(4096);
++	if(from == NULL)
++	{
++		ret = 1;
++		goto end;
++	}
++
++	to = malloc(4096);
++	if(to == NULL)
++	{
++		ret = 1;
++		goto end;
++	}
++	
++	fd = fopen("/dev/dev.lst", "r");
++	if(fd == NULL)
++	{
++		ret = 1;
++		goto end;
++	}
++	
++	while(fgets(fileline, 4096, fd) != NULL)
++	{
++		len = strlen(fileline) - 1;
++		if(len >= 0 && fileline[len] == '\n')
++			fileline[len] = '\0';
++		len--;
++		if(len >= 0 && fileline[len] == '\r')
++			fileline[len] = '\0';
++
++		ret = sscanf(fileline, "%[^#]#%[^#]#%d#%d#%d", to, from, &type, &major, &minor);
++		if(ret != 5)
++		{
++			ret = 0; err = 1;
++			continue;
++		}
++		else
++			ret = 0;
++			
++		if(type == DT_DIR) //dir
++		{
++			ret = mkdir(to, 0777);
++			if(ret != 0)
++			{
++				ret = 0; err = 1;
++				continue;
++			}
++		}
++		else if(type == DT_LNK) //link
++		{
++			ret = symlink(from, to);
++			if(ret != 0)
++			{
++				ret = 0; err = 1;
++				continue;
++			}
++		}
++		else if(type == DT_BLK) //block device
++		{
++			ret = mknod(to, S_IFBLK|0777, makedev(major, minor));
++			if(ret != 0)
++			{
++				ret = 0; err = 1;
++				continue;
++			}
++		}
++		else if(type == DT_CHR) //charcter device
++		{
++			ret = mknod(to, S_IFCHR|0777, makedev(major, minor));
++			if(ret != 0)
++			{
++				ret = 0; err = 1;
++				continue;
++			}
++		}
++		else if(type == DT_FIFO) //fifo
++		{
++			ret = mkfifo(to, 0777);
++			if(ret != 0)
++			{
++				ret = 0; err = 1;
++				continue;
++			}
++		}
++	}
++
++end:
++	free(fileline); fileline = NULL;
++	free(from); from = NULL;
++	free(to); to = NULL;
++	if(fd != NULL) fclose(fd);
++	if(ret != 0) err = 1;
++	return err;
++}
++//NIT
++
+ /* Keep these in proper order since it is searched via bsearch() */
+ static const struct builtincmd builtintab[] = {
+ 	{ BUILTIN_SPEC_REG      "."       , dotcmd     },
+@@ -9152,6 +9268,11 @@
+ #endif
+ 	{ BUILTIN_SPEC_REG      "unset"   , unsetcmd   },
+ 	{ BUILTIN_REGULAR       "wait"    , waitcmd    },
++//NIT
++	{ BUILTIN_REGULAR       "xdevtar" , devtarcmd  },
++	{ BUILTIN_REGULAR       "xinsmod" , insmodcmd  },
++	{ BUILTIN_REGULAR       "xmount"  , mountcmd   },
++//NIT
+ };
+ 
+ /* Should match the above table! */
