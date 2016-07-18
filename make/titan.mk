@@ -2,7 +2,7 @@
 # titan
 #
 
-yaud-titan: yaud-none lirc \
+yaud-titan: yaud-none $(D)/lirc \
 	 $(D)/titan $(D)/release_titan
 	$(TUXBOX_YAUD_CUSTOMIZE)
 
