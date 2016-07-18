@@ -3,8 +3,8 @@
 #
 
 yaud-titan: yaud-none lirc \
-	 titan release_titan
-	@TUXBOX_YAUD_CUSTOMIZE@
+	 $(D)/titan $(D)/release_titan
+	$(TUXBOX_YAUD_CUSTOMIZE)
 
 #curlftpfs
 TITAN_DEPS  = bootstrap libcurl rarfs djmount libfreetype libjpeg libpng ffmpeg titan-libdreamdvd $(MEDIAFW_DEP) tuxtxt32bpp tools-libmme_host tools-libmme_image

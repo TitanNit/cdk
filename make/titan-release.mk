@@ -507,15 +507,10 @@ release_titan_base:
 	install -d $(RELEASE_DIR)/mnt/{hdd,nfs,usb}
 	install -d $(RELEASE_DIR)/usr/{bin,lib,local,sbin,share}
 	install -d $(RELEASE_DIR)/usr/local/{bin,sbin}
-	install -d $(RELEASE_DIR)/usr/share/{fonts,tuxbox,udhcpc,zoneinfo}
-	install -d $(RELEASE_DIR)/usr/share/tuxbox/titan
-	install -d $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/logo
-	ln -sf /usr/share/tuxbox/titan/icons/logo $(RELEASE_DIR)/logos
+	install -d $(RELEASE_DIR)/usr/share/{fonts,udhcpc,zoneinfo}
 	ln -sf /usr/share $(RELEASE_DIR)/share
-	install -d $(RELEASE_DIR)/var/{bin,boot,etc,httpd,lib,tuxbox,update}
+	install -d $(RELEASE_DIR)/var/{bin,boot,etc,lib,update}
 	install -d $(RELEASE_DIR)/var/lib/nfs
-	install -d $(RELEASE_DIR)/var/tuxbox/{config,locale,plugins,themes}
-	install -d $(RELEASE_DIR)/var/tuxbox/config/zapit
 	export CROSS_COMPILE=$(TARGET)- && $(MAKE) install -C $(BUILD_TMP)/busybox-$(BUSYBOX_VER) CONFIG_PREFIX=$(RELEASE_DIR)
 #	remove the slink to busybox
 	rm -f $(RELEASE_DIR)/sbin/halt
@@ -530,13 +525,10 @@ release_titan_base:
 	ln -s ../init.d/sendsigs $(RELEASE_DIR)/etc/rc.d/rc6.d/S20sendsigs
 	ln -s ../init.d/umountfs $(RELEASE_DIR)/etc/rc.d/rc6.d/S40umountfs
 	ln -s ../init.d/reboot $(RELEASE_DIR)/etc/rc.d/rc6.d/S90reboot
-	ln -sf /usr/share/tuxbox/titan/icons/logo $(RELEASE_DIR)/var/httpd/logos
 	touch $(RELEASE_DIR)/var/etc/.firstboot
 	cp -a $(TARGETPREFIX)/bin/* $(RELEASE_DIR)/bin/
 	cp -a $(TARGETPREFIX)/sbin/* $(RELEASE_DIR)/sbin/
 	ln -sf /bin/showiframe $(RELEASE_DIR)/usr/bin/showiframe
-	cp -dp $(TARGETPREFIX)/var/etc/.version $(RELEASE_DIR)/
-	ln -sf /.version $(RELEASE_DIR)/var/etc/.version
 	cp $(TARGETPREFIX)/boot/uImage $(RELEASE_DIR)/boot/
 	ln -sf /proc/mounts $(RELEASE_DIR)/etc/mtab
 	cp -dp $(SKEL_ROOT)/sbin/MAKEDEV $(RELEASE_DIR)/sbin/
@@ -656,20 +648,20 @@ endif
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl871x/8712u.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl871x/8712u.ko $(RELEASE_DIR)/lib/modules/ || true
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8188eu/8188eu.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8188eu/8188eu.ko $(RELEASE_DIR)/lib/modules/ || true
 	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192cu/8192cu.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192cu/8192cu.ko $(RELEASE_DIR)/lib/modules/ || true
-	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko $(RELEASE_DIR)/release/lib/modules || true
+	[ -e $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko ] && cp $(TARGETPREFIX)/lib/modules/$(KERNEL_VERSION)/extra/wireless/rtl8192du/8192du.ko $(RELEASE_DIR)/lib/modules || true
 ifeq ($(IMAGE), $(filter $(IMAGE), enigma2-wlandriver titan-wlandriver))
 	install -d $(RELEASE_DIR)/etc/Wireless
 	cp -aR $(SKEL_ROOT)/firmware/Wireless/* $(RELEASE_DIR)/etc/Wireless/
-	cp -dp $(TARGETPREFIX)/usr/sbin/ifrename $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwconfig $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwevent $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwgetid $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwlist $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwpriv $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/iwspy $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_cli $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_passphrase $(RELEASE_DIR)/usr/sbin/
-	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_supplicant $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/ifrename $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwconfig $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwevent $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwgetid $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwlist $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwpriv $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/iwspy $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_cli $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_passphrase $(RELEASE_DIR)/usr/sbin/
+#	cp -dp $(TARGETPREFIX)/usr/sbin/wpa_supplicant $(RELEASE_DIR)/usr/sbin/
 endif
 #
 # lib usr/lib
@@ -677,7 +669,6 @@ endif
 	cp -R $(TARGETPREFIX)/lib/* $(RELEASE_DIR)/lib/
 	rm -f $(RELEASE_DIR)/lib/*.{a,o,la}
 	chmod 755 $(RELEASE_DIR)/lib/*
-	ln -s /var/tuxbox/plugins/libfx2.so $(RELEASE_DIR)/lib/libfx2.so
 	cp -R $(TARGETPREFIX)/usr/lib/* $(RELEASE_DIR)/usr/lib/
 	rm -rf $(RELEASE_DIR)/usr/lib/{engines,enigma2,gconv,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-2.0}
 	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
@@ -685,42 +676,17 @@ endif
 #
 # fonts
 #
-	if [ -e $(TARGETPREFIX)/usr/share/fonts/titan.ttf ]; then \
-		cp -aR $(TARGETPREFIX)/usr/share/fonts/titan.ttf $(RELEASE_DIR)/usr/share/fonts; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/share/fonts/micron.ttf ]; then \
-		cp -aR $(TARGETPREFIX)/usr/share/fonts/micron.ttf $(RELEASE_DIR)/usr/share/fonts; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/share/fonts/DejaVuLGCSansMono-Bold.ttf ]; then \
-		cp -aR $(TARGETPREFIX)/usr/share/fonts/DejaVuLGCSansMono-Bold.ttf $(RELEASE_DIR)/usr/share/fonts; \
-		ln -s /usr/share/fonts/DejaVuLGCSansMono-Bold.ttf $(RELEASE_DIR)/usr/share/fonts/tuxtxt.ttf; \
-	fi
+
 #
 # titan
 #
 	ln -sf /usr/share $(RELEASE_DIR)/usr/local/share
 	cp $(TARGETPREFIX)/usr/local/bin/titan $(RELEASE_DIR)/usr/local/bin/
-	cp $(TARGETPREFIX)/usr/local/bin/pzapit $(RELEASE_DIR)/usr/local/bin/
-	cp $(TARGETPREFIX)/usr/local/bin/sectionsdcontrol $(RELEASE_DIR)/usr/local/bin/
-	if [ -e $(TARGETPREFIX)/usr/local/bin/install.sh ]; then \
-		cp -aR $(TARGETPREFIX)/usr/local/bin/install.sh $(RELEASE_DIR)/bin/; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/local/bin/luaclient ]; then \
-		cp $(TARGETPREFIX)/usr/local/bin/luaclient $(RELEASE_DIR)/bin/; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/local/bin/rcsim ]; then \
-		cp $(TARGETPREFIX)/usr/local/bin/rcsim $(RELEASE_DIR)/bin/; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/local/sbin/udpstreampes ]; then \
-		cp $(TARGETPREFIX)/usr/local/sbin/udpstreampes $(RELEASE_DIR)/usr/local/sbin/; \
-	fi
-	if [ -e $(TARGETPREFIX)/usr/local/bin/udpstreampes ]; then \
-		cp $(TARGETPREFIX)/usr/local/bin/udpstreampes $(RELEASE_DIR)/usr/local/bin/; \
-	fi
+
 #
 # channellist / tuxtxt
 #
-	cp -aR $(TARGETPREFIX)/var/tuxbox/config/* $(RELEASE_DIR)/var/tuxbox/config
+
 #
 # copy root_titan
 #
@@ -732,16 +698,16 @@ endif
 #
 # iso-codes
 #
-	cp -aR $(TARGETPREFIX)/usr/local/share/iso-codes $(RELEASE_DIR)/usr/share/
+#	cp -aR $(TARGETPREFIX)/usr/local/share/iso-codes $(RELEASE_DIR)/usr/share/
 #
 # httpd/icons/locale/themes
 #
-	cp -aR $(TARGETPREFIX)/usr/share/tuxbox/titan/* $(RELEASE_DIR)/usr/share/tuxbox/titan
+#	cp -aR $(TARGETPREFIX)/usr/share/tuxbox/titan/* $(RELEASE_DIR)/usr/share/tuxbox/titan
 #
 # backup/restore NMP
 #
-	[ -e $(TARGETPREFIX)/usr/local/bin/backup.sh ] && cp -aR $(TARGETPREFIX)/usr/local/bin/backup.sh $(RELEASE_DIR)/bin || true
-	[ -e $(TARGETPREFIX)/usr/local/bin/restore.sh ] && cp -aR $(TARGETPREFIX)/usr/local/bin/restore.sh $(RELEASE_DIR)/bin || true
+#	[ -e $(TARGETPREFIX)/usr/local/bin/backup.sh ] && cp -aR $(TARGETPREFIX)/usr/local/bin/backup.sh $(RELEASE_DIR)/bin || true
+#	[ -e $(TARGETPREFIX)/usr/local/bin/restore.sh ] && cp -aR $(TARGETPREFIX)/usr/local/bin/restore.sh $(RELEASE_DIR)/bin || true
 #
 # alsa
 #
@@ -901,12 +867,12 @@ $(D)/%release_titan: release_titan_base release_titan_$(BOXTYPE)
 	$(TUXBOX_CUSTOMIZE)
 	touch $@
 #
-# FOR YOUR OWN CHANGES use these folder in cdk/own_build/titan-hd
+# FOR YOUR OWN CHANGES use these folder in cdk/own_build/titan
 #
 #	default for all receiver
-	find $(CDK_DIR)/own_build/titan-hd/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} +
+	find $(CDK_DIR)/own_build/titan/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} +
 #	receiver specific (only if directory exist)
-	[ -d "$(CDK_DIR)/own_build/titan-hd.$(BOXTYPE)" ] && find $(CDK_DIR)/own_build/titan-hd.$(BOXTYPE)/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} + || true
+	[ -d "$(CDK_DIR)/own_build/titan.$(BOXTYPE)" ] && find $(CDK_DIR)/own_build/titan.$(BOXTYPE)/ -mindepth 1 -maxdepth 1 -exec cp -at$(RELEASE_DIR)/ -- {} + || true
 	echo $(BOXTYPE) > $(RELEASE_DIR)/etc/model
 	rm -f $(RELEASE_DIR)/for_your_own_changes
 #
@@ -923,25 +889,25 @@ $(D)/%release_titan: release_titan_base release_titan_$(BOXTYPE)
 	ln -s /tmp $(RELEASE_DIR)/var/run
 	ln -s /tmp $(RELEASE_DIR)/var/tmp
 #
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/scan.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/scan.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/mp3.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3-?.jpg
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/shutdown.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/shutdown.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/radiomode.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/radiomode.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
-	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/start.jpg $(RELEASE_DIR)/var/boot/
-	ln -s /var/boot/start.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+#	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/scan.jpg $(RELEASE_DIR)/var/boot/
+#	ln -s /var/boot/scan.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+#	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3.jpg $(RELEASE_DIR)/var/boot/
+#	ln -s /var/boot/mp3.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+#	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/mp3-?.jpg
+#	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/shutdown.jpg $(RELEASE_DIR)/var/boot/
+#	ln -s /var/boot/shutdown.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+#	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/radiomode.jpg $(RELEASE_DIR)/var/boot/
+#	ln -s /var/boot/radiomode.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
+#	mv -f $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/start.jpg $(RELEASE_DIR)/var/boot/
+#	ln -s /var/boot/start.jpg $(RELEASE_DIR)/usr/share/tuxbox/titan/icons/
 #
 	rm -f $(RELEASE_DIR)/bin/pic2m2v
 	rm -f $(RELEASE_DIR)/usr/lib/*.py
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_cst_v?.*
-ifneq ($(BOXTYPE), $(filter $(BOXTYPE), spark spark7162))
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_new.jpg
-	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_old.jpg
-endif
+#	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_cst_v?.*
+#ifneq ($(BOXTYPE), $(filter $(BOXTYPE), spark spark7162))
+#	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_new.jpg
+#	rm -f $(RELEASE_DIR)/usr/share/tuxbox/titan/httpd/images/rc_spark_old.jpg
+#endif
 #
 # sh4-linux-strip all
 #
