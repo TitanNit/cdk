@@ -1,1 +1,12 @@
-../build-all/linux-sh4-lzma-fix_stm24_0209.patch
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -227,8 +227,7 @@
+ # ---------------------------------------------------------------------------
+ 
+ quiet_cmd_lzma = LZMA    $@
+-cmd_lzma = (cat $(filter-out FORCE,$^) | \
+-	lzma -9 && $(call size_append, $(filter-out FORCE,$^))) > $@ || \
++cmd_lzma = (lzma -9 -c $(filter-out FORCE,$^) && $(call size_append, $(filter-out FORCE,$^))) > $@ || \
+ 	(rm -f $@ ; false)
+ 
+ quiet_cmd_lzo = LZO    $@

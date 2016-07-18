@@ -1,1 +1,11 @@
-../build-all/linux-sh4-init_mm_stm24_0217.patch
+--- a/arch/sh/mm/init.c
++++ b/arch/sh/mm/init.c
+@@ -133,6 +133,8 @@
+ 		j = 0;
+ 	}
+ }
++
++EXPORT_SYMBOL(init_mm);
+ #endif	/* CONFIG_MMU */
+ 
+ /*
