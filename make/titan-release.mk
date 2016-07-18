@@ -847,9 +847,9 @@ endif
 	rm -f $(RELEASE_DIR)/usr/lib/libtermcap*
 	rm -f $(RELEASE_DIR)/usr/lib/libmenu*
 	rm -f $(RELEASE_DIR)/usr/lib/libpanel*
-	rm -f $(RELEASE_DIR)/usr/lib/libdvdcss*
-	rm -f $(RELEASE_DIR)/usr/lib/libdvdnav*
-	rm -f $(RELEASE_DIR)/usr/lib/libdvdread*
+#	rm -f $(RELEASE_DIR)/usr/lib/libdvdcss*
+#	rm -f $(RELEASE_DIR)/usr/lib/libdvdnav*
+#	rm -f $(RELEASE_DIR)/usr/lib/libdvdread*
 	rm -f $(RELEASE_DIR)/usr/lib/libncurses*
 	rm -f $(RELEASE_DIR)/usr/lib/libthread_db*
 	rm -f $(RELEASE_DIR)/usr/lib/libanl*
