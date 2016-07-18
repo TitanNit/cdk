@@ -25,7 +25,11 @@ COMMON_PATCHES_24 = \
 		linux-sh4-mmap_stm24.patch \
 		linux-defined_is_deprecated_timeconst.pl_stm24_$(KERNEL_LABEL).patch \
 		$(if $(P0217),linux-patch_swap_notify_core_support_stm24_$(KERNEL_LABEL).patch) \
-		$(if $(P0209),linux-sh4-dwmac_stm24_$(KERNEL_LABEL).patch)
+		$(if $(P0209),linux-sh4-dwmac_stm24_$(KERNEL_LABEL).patch) \
+		linux-squashfs-downgrade-stm24_$(KERNEL_LABEL)-to-stm23.patch \
+		linux-squashfs3.0_lzma_stm24.patch \
+		linux-squashfs-downgrade-stm24-2.6.25.patch \
+		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
 TF7700_PATCHES_24 = $(COMMON_PATCHES_24) \
 		linux-sh4-tf7700_setup_stm24_$(KERNEL_LABEL).patch \
