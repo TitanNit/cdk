@@ -297,7 +297,7 @@
 -	.csn		= 0,
 +	 {
 +	 .name   = "NAND KERNEL",
-+	 .size   = 0x200000,
++	 .size   = 0x300000,
 +	 .offset = MTDPART_OFS_APPEND
 +	 }, {
 +	 .name   = "NAND ROOT",
@@ -305,7 +305,7 @@
 +	 .offset = MTDPART_OFS_APPEND
 +	 }, {
 +	 .name   = "NAND VAR",
-+	 .size   = 0x1e00000,	/* will expand to the end of the flash */
++	 .size   = 0x1d00000,	/* will expand to the end of the flash */
 +	 .offset = MTDPART_OFS_APPEND
 +	 }, {
 +	 .name   = "NAND SWAP",
