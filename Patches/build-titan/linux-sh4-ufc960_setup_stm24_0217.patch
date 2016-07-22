@@ -86,17 +86,17 @@
 +	},
 +	{
 +		.name = "Kernel",
-+		.size = 0x220000,
++		.size = 0x260000,
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{
 +		.name = "Root",
-+		.size = 0x980000,
++		.size = 0x900000,
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{
 +		.name = "Var",
-+		.size = 0x280000, 
++		.size = 0x300000, 
 +	    .offset = MTDPART_OFS_APPEND
 +	},
 +	{	

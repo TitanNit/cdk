@@ -38,8 +38,8 @@
   	memcpy(boot_command_line, command_line, COMMAND_LINE_SIZE);
   	*cmdline_p = command_line;
 
---- linux-sh4/arch/sh/boards/mach-sat7111/setup.c	2012-03-31 15:26:54.000000000 +0200
-+++ linux-sh4/arch/sh/boards/mach-sat7111/setup.c.patched	2012-07-08 20:51:17.000000000 +0200
+--- linux-sh4/arch/sh/boards/mach-sat7111/setup.c	2013-03-25 15:00:47.000000000 +0100
++++ linux-sh4/arch/sh/boards/mach-sat7111/setup.c.patched	2013-08-08 16:16:24.000000000 +0200
 @@ -28,13 +28,14 @@
  #include <linux/mtd/nand.h>
  #include <linux/mtd/physmap.h>
@@ -67,41 +67,43 @@
 +/*
 +0x40000000 - 0x403FFFFF - cocpu 1 ram (4mb)
 +0x40400000 - 0x407FFFFF - cocpu 2 ram (4mb)
-+0x40800000 - 0x49FFFFFF - linux   (149mb)
-+0x4A000000 - 0x4B1FFFFF - bigphys ( 23mb)
-+0x4B200000 - 0x4FFFFFFF - lmi_io  ( 83mb)
++0x40800000 - 0x47FFFFFF - linux   (120mb)
++0x48000000 - 0x49FFFFFF - bigphys ( 32mb)
++0x4A000000 - 0x4FFFFFFF - lmi_io  ( 96mb)
 +*/
 +static struct bpa2_partition_desc bpa2_parts_table[] = {
 +    {
 + 	    .name  = "bigphysarea",
-+ 	    .start = 0x49600000,
-+ 	    .size  = 0x01700000, /* 23 Mb */
++ 	    .start = 0x48000000,
++ 	    .size  = 0x02000000, /* 32 Mb */
 + 	    .flags = 0,
 + 	    .aka   = NULL
-+    }, 
++    },
 +    {
 + 	    .name  = "LMI_IO",
-+ 	    .start = 0x4AD00000,
-+ 	    .size  = 0x05300000, /* 83 Mb */
++ 	    .start = 0x4A000000,
++ 	    .size  = 0x06000000, /* 96 Mb */
 + 	    .flags = 0,
 + 	    .aka   = LMI_IO_partalias
-+    }, 
++    },
 + };
 +
  static void __init sat7111_setup(char** cmdline_p)
  {
  	printk(KERN_INFO "STMicroelectronics sat7111 reference board initialisation\n");
-@@ -50,15 +77,14 @@
+@@ -50,15 +77,16 @@
  	stx7111_early_device_init();
  
  	stx7111_configure_asc(2, &(struct stx7111_asc_config) {
 -			.hw_flow_control = 1,
 +			.hw_flow_control = 0,
  			.is_console = 1, });
++#if 0
  	stx7111_configure_asc(3, &(struct stx7111_asc_config) {
 -			.hw_flow_control = 1,
 +			.hw_flow_control = 0,
  			.is_console = 0, });
++#endif
 +	bpa2_init(bpa2_parts_table, ARRAY_SIZE(bpa2_parts_table));
  }
  
@@ -110,7 +112,16 @@
  static struct platform_device sat7111_leds = {
  	.name = "leds-gpio",
  	.id = -1,
-@@ -109,6 +135,12 @@
+@@ -77,8 +105,6 @@
+ 	},
+ };
+ 
+-
+-
+ static struct gpio_keys_button sat7111_buttons[] = {
+ 	{
+ 		.code = BTN_0,
+@@ -109,6 +135,41 @@
  	},
  };
  
@@ -120,18 +131,45 @@
 +	gpio_set_value(SAT7111_FLASH_VPP, enable);
 +}
 +
++// Nor Flash Configuration
++static struct mtd_partition nor_parts[] = {
++	{
++		.name   = "NOR U-BOOT",
++		.size   = 0x60000,
++		.offset = 0
++	},
++	{
++		.name = "NOR KERNEL",
++		.size = 0x2a0000,
++		.offset = 0x60000
++	},
++	{
++		.name = "NOR ROOT",
++		.size = 0xcc0000,
++		.offset = 0x300000
++	},
++	{
++		.name = "NOR VAR",
++		.size = MTDPART_SIZ_FULL,
++		.offset = 0xfc0000, 
++	},
++	{
++		.name = "NOR FULL",
++		.size = MTDPART_SIZ_FULL,
++		.offset = 0x60000
++	}
++};
++
  static struct platform_device sat7111_nor_flash = {
  	.name		= "physmap-flash",
  	.id		= -1,
-@@ -118,75 +150,38 @@
+@@ -118,77 +179,64 @@
  	},
  	.dev.platform_data = &(struct physmap_flash_data) {
  		.width		= 2,
 -		.nr_parts	= 3,
-+		.nr_parts	= 6,
-+		.set_vpp	= sat7111_nor_set_vpp,
- 		.parts		=  (struct mtd_partition []) {
- 			{
+-		.parts		=  (struct mtd_partition []) {
+-			{
 -				.name = "NOR Flash 1",
 -				.size = 0x00080000,
 -				.offset = 0x00000000,
@@ -143,19 +181,49 @@
 -				.name = "NOR Flash 3",
 -				.size = MTDPART_SIZ_FULL,
 -				.offset = MTDPART_OFS_NXTBLK,
-+				.name = "Boot firmware",
-+				.size = 0x00060000,	//	0,375M
-+				.offset = 0x00000000,	//	ok
- 			},
+-			},
 -		},
 -
 -
--	},
--};
--
++		.nr_parts	= ARRAY_SIZE(nor_parts),
++		.parts		= nor_parts
+ 	},
+ };
+ 
 -struct stm_nand_bank_data sat7111_nand_flash = {
--	.csn		= 1,
--	.options	= NAND_NO_AUTOINCR | NAND_USE_FLASH_BBT,
++// Nand Flash Configuration
++static struct mtd_partition nand_parts[] = {
++#ifdef ORIGINAL_MTD
++	 {
++	 .name = "NAND KERNEL    0x0000.0000-0x002F.FFFF",
++	 .size = 0x300000,
++	 .offset = 0
++	 }, {
++	 .name = "NAND ROOT      0x0030.0000-0x027F.FFFF",
++	 .size = 0x2500000,
++	 .offset = 0x300000
++	 }, {
++	 .name = "NAND CONFIG    0x0280.0000-0x04FF.FFFF",
++	 .size = 0x2800000,
++	 .offset = 0x2800000
++	 }, {
++	 .name = "NAND DATA      0x0500.0000-0x07FF.FFFF",
++	 .size = MTDPART_SIZ_FULL,	/* will expand to the end of the flash */
++	 .offset = 0x05000000
++	 }
++#else
++	 {
++	 .name   = "NAND SWAP",
++	 .size   = MTDPART_SIZ_FULL,
++	 .offset = MTDPART_OFS_APPEND
++	 }
++#endif
++};
++static struct stm_nand_bank_data nand_bank_data = {
+ 	.csn		= 1,
++	.nr_partitions	= ARRAY_SIZE(nand_parts),
++	.partitions	= nand_parts,
+ 	.options	= NAND_NO_AUTOINCR | NAND_USE_FLASH_BBT,
 -	.nr_partitions	= 2,
 -	.partitions	= (struct mtd_partition []) {
 -		{
@@ -168,19 +236,23 @@
 -			.size	= MTDPART_SIZ_FULL
 -		},
 -	},
--	.timing_data	= &(struct stm_nand_timing_data) {
--		.sig_setup	= 50,		/* times in ns */
--		.sig_hold	= 50,
--		.CE_deassert	= 0,
--		.WE_to_RBn	= 100,
--		.wr_on		= 10,
+ 	.timing_data	= &(struct stm_nand_timing_data) {
+ 		.sig_setup	= 50,		/* times in ns */
+ 		.sig_hold	= 50,
+ 		.CE_deassert	= 0,
+ 		.WE_to_RBn	= 100,
+ 		.wr_on		= 10,
 -		.wr_off		= 40,
--		.rd_on		= 10,
++		.wr_off		= 30,
+ 		.rd_on		= 10,
 -		.rd_off		= 40,
 -		.chip_delay	= 30,		/* in us */
--	},
--};
--
++		.rd_off		= 30,
++		.chip_delay	= 50,		/* in us */
+ 	},
++	.emi_withinbankoffset	= 0,
+ };
+ 
 -/* Serial Flash */
 -static struct spi_board_info sat7111_serial_flash = {
 -	.modalias       = "m25p80",
@@ -201,34 +273,45 @@
 -				.name = "Serial Flash 2",
 -				.size = MTDPART_SIZ_FULL,
 -				.offset = MTDPART_OFS_NXTBLK,
-+			{
-+				.name = "Kernel",
-+				.size = 0x2a0000,
-+				.offset = 0x60000
-+			},
-+			{
-+				.name = "Root",
-+				.size = 0xd40000,
-+				.offset = 0x300000
-+	 		},
-+			{
-+	 			.name = "Var",
-+	 			.size = MTDPART_SIZ_FULL,
-+	 			.offset = 0x1c00000 
-+	 		},
-+			{
-+				.name = "Swap",
-+				.size = 0xbc0000,
-+				.offset = 0x1040000
-+			},
-+			{
-+				.name = "Full",
-+				.size = MTDPART_SIZ_FULL,
-+				.offset = 0x60000
- 			},
- 		},
+-			},
+-		},
++static struct platform_device sat7111_nand_device = {
++	.name		= "stm-nand-emi",
++	.dev.platform_data = &(struct stm_plat_nand_emi_data){
++		.nr_banks	= 1,
++		.banks		= &nand_bank_data,
++		.emi_rbn_gpio	= -1,
  	},
-@@ -216,15 +211,9 @@
+ };
+ 
+@@ -208,23 +256,36 @@
+ 	.phy_mask = 0,
+ };
+ 
++//static struct platform_device sat7111_epld_device = {
++//	.name		= "epld",
++//	.id		= -1,
++//	.num_resources	= 1,
++//	.resource	= (struct resource[]) {
++//		{
++//			.start	= 0x06000000,
++//			/* Minimum size to ensure mapped by PMB */
++//			.end	= 0x06000000+(8*1024*1024)-1,
++//			.flags	= IORESOURCE_MEM,
++//		}
++//	},
++//	.dev.platform_data = &(struct plat_epld_data) {
++//		 .opsize = 8,
++//	},
++//};
++
+ static struct platform_device *sat7111_devices[] __initdata = {
++//	&sat7111_epld_device,
+ 	&sat7111_leds,
+ 	&sat7111_nor_flash,
+ 	&sat7111_button_device,
++	&sat7111_nand_device,
+ };
  
  static int __init sat7111_devices_init(void)
  {
@@ -246,7 +329,7 @@
  	stx7111_configure_ssc_i2c(3, NULL);
  
  	stx7111_configure_usb(&(struct stx7111_usb_config) {
-@@ -246,14 +235,6 @@
+@@ -246,14 +307,6 @@
  
  	gpio_direction_output(SAT7111_PHY_RESET, 0);
  
@@ -261,46 +344,6 @@
  	return platform_add_devices(sat7111_devices,
  				    ARRAY_SIZE(sat7111_devices));
  }
-
---- linux-sh4/arch/sh/include/asm/irq-ilc.h	2012-03-31 15:26:54.634523363 +0200
-+++ linux-sh4/arch/sh/include/asm/irq-ilc.h.patched	2012-03-31 15:26:54.084558439 +0200
-@@ -40,7 +40,7 @@
- #define ILC_IRQ(x)	(ILC_FIRST_IRQ + (x))
- #elif	defined(CONFIG_CPU_SUBTYPE_STX7111)
- #define ILC_FIRST_IRQ	176
--#define ILC_NR_IRQS	(64+36)
-+#define ILC_NR_IRQS	(64+35)
- #define ILC_INT_IRQ(x)	(ILC_FIRST_IRQ + (x))
- #define ILC_EXT_IRQ(x)	(ILC_FIRST_IRQ + 64 + (x))
- #define ILC_IRQ(x)	ILC_INT_IRQ(x)
---- linux-sh4/drivers/stm/stx7111_comms.c	2012-03-31 15:26:54.723480793 +0200
-+++ linux-sh4/drivers/stm/stx7111_comms.c.patched	2012-03-31 15:26:54.982982566 +0200
-@@ -69,10 +69,10 @@
- 	[3] = {
- 		.gpios_num = 4,
- 		.gpios = (struct stm_pad_gpio []) {
--			STM_PAD_PIO_OUT(5, 0, 1),	/* TX */
--			STM_PAD_PIO_IN(5, 1, -1),	/* RX */
--			STM_PAD_PIO_IN_NAMED(5, 2, -1, "CTS"),
--			STM_PAD_PIO_OUT_NAMED(5, 3, 1, "RTS"),
-+			STM_PAD_PIO_OUT(6, 7, 1),	/* TX */
-+			STM_PAD_PIO_IN(6, 3, -1),	/* RX */
-+			STM_PAD_PIO_IN_NAMED(6, 2, -1, "CTS"),
-+			STM_PAD_PIO_OUT_NAMED(6, 6, 1, "RTS"),
- 		},
- 	},
- };
-@@ -125,8 +125,8 @@
- 		/* .id set in stx7111_configure_asc() */ 
- 		.num_resources	= 4,
- 		.resource	= (struct resource[]) {
--			STM_PLAT_RESOURCE_MEM(0xfd033000, 0x2c),
--			STM_PLAT_RESOURCE_IRQ(evt2irq(0x1100), -1),
-+			STM_PLAT_RESOURCE_MEM(0xfd034000, 0x2c),
-+			STM_PLAT_RESOURCE_IRQ(evt2irq(0x2440), -1),
- 			STM_PLAT_RESOURCE_DMA_NAMED("rx_half_full", 14),
- 			STM_PLAT_RESOURCE_DMA_NAMED("tx_half_empty", 18),
- 		},
 --- linux-sh4/drivers/stm/gpio.c	2012-03-31 15:26:55.000000000 +0200
 +++ linux-sh4/drivers/stm/gpio.c.patched	2012-07-08 17:17:27.000000000 +0200
 @@ -27,6 +27,10 @@
@@ -520,4 +563,130 @@
   			switch (phydev->irq) {
   			case PHY_POLL:
   				irq_str = "POLL";
+
+--- linux-sh/drivers/serial/stm-asc.c	2013-03-25 15:00:52.000000000 +0100
++++ linux-sh/drivers/serial/stm-asc.c.patched	2013-04-09 03:37:37.000000000 +0200
+@@ -543,17 +543,19 @@
+ 	ret = uart_register_driver(&asc_uart_driver);
+ 	if (ret)
+ 		return ret;
+-
++#if 1
+ 	ret = platform_driver_register(&asc_serial_driver);
+ 	if (ret)
+ 		uart_unregister_driver(&asc_uart_driver);
+-
++#endif
+ 	return ret;
+ }
+ 
+ static void __exit asc_exit(void)
+ {
++#if 1
+ 	platform_driver_unregister(&asc_serial_driver);
++#endif
+ 	uart_unregister_driver(&asc_uart_driver);
+ }
+
+--- linux-sh/drivers/mtd/chips/cfi_cmdset_0002.c	2013-04-11 18:53:02.000000000 +0200
++++ linux-sh/drivers/mtd/chips/cfi_cmdset_0002.c.patched	2013-04-12 00:17:17.000000000 +0200
+@@ -388,7 +388,7 @@
+ 		cfi_fixup_major_minor(cfi, extp);
+ 
+ 		if (extp->MajorVersion != '1' ||
+-		    (extp->MinorVersion < '0' || extp->MinorVersion > '4')) {
++		    (extp->MinorVersion < '0' || extp->MinorVersion > '5')) {
+ 			printk(KERN_ERR "  Unknown Amd/Fujitsu Extended Query "
+ 			       "version %c.%c.\n",  extp->MajorVersion,
+ 			       extp->MinorVersion);
+diff -crp linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_base.c linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_base.c
+*** linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_base.c	2012-09-14 12:32:12.000000000 +0200
+--- linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_base.c	2012-09-14 13:22:11.000000000 +0200
+*************** int nand_do_read_ops(struct mtd_info *mt
+*** 1379,1398 ****
+  
+  			/* Now read the page into the buffer */
+  			if (unlikely(ops->mode == MTD_OOB_RAW))
+! 				ret = chip->ecc.read_page_raw(mtd, chip,
+! 							      bufpoi, page);
+! 			else if (!aligned && NAND_SUBPAGE_READ(chip) && !oob)
+! 				ret = chip->ecc.read_subpage(mtd, chip, col, bytes, bufpoi);
+  			else
+! 				ret = chip->ecc.read_page(mtd, chip, bufpoi,
+! 							  page);
+  			if (ret < 0)
+  				break;
+  
+  			/* Transfer not aligned data */
+  			if (!aligned) {
+! 				if (!NAND_SUBPAGE_READ(chip) && !oob)
+! 					chip->pagebuf = realpage;
+  				memcpy(buf, chip->buffers->databuf + col, bytes);
+  			}
+  
+--- 1379,1393 ----
+  
+  			/* Now read the page into the buffer */
+  			if (unlikely(ops->mode == MTD_OOB_RAW))
+! 				ret = chip->ecc.read_page_raw(mtd, chip,bufpoi, page);
+  			else
+! 				ret = chip->ecc.read_page(mtd, chip, bufpoi, page);
+  			if (ret < 0)
+  				break;
+  
+  			/* Transfer not aligned data */
+  			if (!aligned) {
+! 				chip->pagebuf = realpage;
+  				memcpy(buf, chip->buffers->databuf + col, bytes);
+  			}
+  
+*************** static struct nand_flash_dev *nand_get_f
+*** 2906,2913 ****
+  	/* Decode ID string */
+  	if (nand_decode_id(mtd, chip, type, id_data, 8) != 0) {
+  		printk(KERN_INFO "Failed to decode NAND READID "
+! 		       "[%02x %02x %02x %02x]\n",
+! 		       id_data[0], id_data[1], id_data[2], id_data[3]);
+  		return ERR_PTR(-EINVAL);
+  	}
+  
+--- 2901,2908 ----
+  	/* Decode ID string */
+  	if (nand_decode_id(mtd, chip, type, id_data, 8) != 0) {
+  		printk(KERN_INFO "Failed to decode NAND READID "
+! 		       "[%02x %02x %02x %02x %02x]\n",
+! 		       id_data[0], id_data[1], id_data[2], id_data[3], id_data[4] );
+  		return ERR_PTR(-EINVAL);
+  	}
+  
+diff -crp linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_ecc.c linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_ecc.c
+*** linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_ecc.c	2012-09-14 12:32:12.000000000 +0200
+--- linux-sh4-2.6.32.59_stm24_0211/drivers/mtd/nand/nand_ecc.c	2012-09-14 13:22:11.000000000 +0200
+*************** int __nand_correct_data(unsigned char *b
+*** 492,503 ****
+  	}
+  	/* count nr of bits; use table lookup, faster than calculating it */
+  	if ((bitsperbyte[b0] + bitsperbyte[b1] + bitsperbyte[b2]) == 1) {
+! 		printk(KERN_DEBUG "%s: ignoring error in ECC, data ok: [",
+! 		       __func__);
+  		return 1;	/* error in ecc data; no action needed */
+  	}
+  
+! 	printk(KERN_ERR "%s: uncorrectable error: [", __func__);
+  	return -1;
+  }
+  EXPORT_SYMBOL(__nand_correct_data);
+--- 492,503 ----
+  	}
+  	/* count nr of bits; use table lookup, faster than calculating it */
+  	if ((bitsperbyte[b0] + bitsperbyte[b1] + bitsperbyte[b2]) == 1) {
+! 		/*printk(KERN_DEBUG "%s: ignoring error in ECC, data ok: [",
+! 		       __func__);*/
+  		return 1;	/* error in ecc data; no action needed */
+  	}
+  
+! 	//printk(KERN_ERR "%s: uncorrectable error: [", __func__);
+  	return -1;
+  }
+  EXPORT_SYMBOL(__nand_correct_data);
 
