@@ -51,7 +51,6 @@ $(APPS_DIR)/titan/titan/config.status:
 			--host=$(TARGET) \
 			--build=$(BUILD) \
 			--prefix=/usr/local \
-			--with-target=cdk \
 			PKG_CONFIG=$(HOSTPREFIX)/bin/$(TARGET)-pkg-config \
 			PKG_CONFIG_PATH=$(TARGETPREFIX)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
