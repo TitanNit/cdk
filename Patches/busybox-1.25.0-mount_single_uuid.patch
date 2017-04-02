@@ -1,0 +1,81 @@
+Index: busybox/util-linux/mount.c
+===================================================================
+--- busybox/util-linux/mount.c
++++ busybox/util-linux/mount.c
+@@ -1785,6 +1785,11 @@
+ 	llist_t *fl = NULL;
+ 	struct stat st;
+ 
++	//NIT
++	char *tmpfstype;
++	char *systemstr;
++	//NIT
++
+ 	errno = 0;
+ 
+ 	vfsflags = parse_mount_options(mp->mnt_opts, &filteropts);
+@@ -1919,6 +1924,19 @@
+ 			vfsflags |= MS_BIND;
+ 	}
+ 
++	//NIT
++	if(mp->mnt_type != NULL)
++	{
++		tmpfstype=malloc(strlen(mp->mnt_type + 1));
++		sprintf(tmpfstype, "%s", mp->mnt_type);
++	}
++	else
++	{
++		tmpfstype=malloc(5);
++		sprintf(tmpfstype, "nofs");
++	}
++	//NIT
++
+ 	// If we know the fstype (or don't need to), jump straight
+ 	// to the actual mount.
+ 	if (mp->mnt_type || (vfsflags & (MS_REMOUNT | MS_BIND | MS_MOVE))) {
+@@ -1947,12 +1965,35 @@
+ 
+ 		for (fl = fslist; fl; fl = fl->link) {
+ 			mp->mnt_type = fl->data;
++
++			//NIT
++			if(!strcmp(mp->mnt_type, "ntfs"))
++				continue;
++			//NIT
++
+ 			rc = mount_it_now(mp, vfsflags, filteropts);
+ 			if (rc == 0)
+ 				break;
+ 		}
+ 	}
+ 
++	//NIT
++	if (!(vfsflags & (MS_REMOUNT | MS_BIND | MS_MOVE))) {
++		if (rc && strcmp(tmpfstype, "ntfs")) {
++			if(!strcmp(tmpfstype, "nofs"))
++			{
++				sprintf(tmpfstype, "ntfs");
++			}
++			systemstr=malloc(strlen(tmpfstype) + strlen(mp->mnt_opts) + strlen(mp->mnt_fsname) + strlen(mp->mnt_dir) + 25);
++			sprintf(systemstr, "mount.sh \"%s\" \"%s\" \"%s\" \"%s\"", tmpfstype, mp->mnt_opts, mp->mnt_fsname, mp->mnt_dir);
++			rc=system(systemstr);
++			free(systemstr);
++			if(rc != 0) rc=-1;
++		}
++	}
++	free(tmpfstype);
++	//NIT
++
+ 	// If mount failed, clean up loop file (if any).
+ 	if (ENABLE_FEATURE_MOUNT_LOOP && rc && loopFile) {
+ 		del_loop(mp->mnt_fsname);
+@@ -2165,6 +2206,8 @@
+ 		// "proc") or a full path from root
+ 		if (argv[0]) {
+ 
++			// Check for UUID= or LABEL= entries too
++			resolve_mount_spec(&mtcur->mnt_fsname);
+ 			// Is this what we're looking for?
+ 			if (strcmp(argv[0], mtcur->mnt_fsname) != 0
+ 			 && strcmp(storage_path, mtcur->mnt_fsname) != 0

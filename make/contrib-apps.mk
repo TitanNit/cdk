@@ -19,6 +19,7 @@ $(D)/busybox: $(D)/bootstrap $(ARCHIVE)/busybox-$(BUSYBOX_VER).tar.bz2 $(PATCHES
 		$(PATCH)/busybox-$(BUSYBOX_VER)-nandwrite.patch; \
 		$(PATCH)/busybox-$(BUSYBOX_VER)-unicode.patch; \
 		$(PATCH)/busybox-$(BUSYBOX_VER)-extra.patch; \
+		$(PATCH)/busybox-$(BUSYBOX_VER)-mount_single_uuid.patch; \
 		$(PATCH)/busybox-$(BUSYBOX_VER)-xinsmod-xtar-xdev.patch; \
 		install -m 0644 $(lastword $^) .config; \
 		sed -i -e 's#^CONFIG_PREFIX.*#CONFIG_PREFIX="$(TARGETPREFIX)"#' .config; \
