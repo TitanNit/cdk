@@ -130,7 +130,7 @@ $(D)/host_glib2_genmarshal: $(D)/host_libffi $(ARCHIVE)/glib-$(GLIB_VER).tar.xz
 	export PKG_CONFIG=/usr/bin/pkg-config; \
 	export PKG_CONFIG_PATH=$(HOSTPREFIX)/lib/pkgconfig; \
 	set -e; cd $(BUILD_TMP)/glib-$(GLIB_VER); \
-		$(PATCH)/glib2-gdate-suppress-string-format-literal-warning-$(GLIB_VER).patch; \
+		$(PATCH)/glib-gdate-suppress-string-format-literal-warning-$(GLIB_VER).patch; \
 		./configure \
 			--enable-static=yes \
 			--enable-shared=no \
