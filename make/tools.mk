@@ -3,7 +3,7 @@
 #
 tools-clean:
 	rm -f $(D)/tools-*
-	-$(MAKE) -C $(APPS_DIR)/tools/aio-grab distclean
+	-$(MAKE) -C $(APPS_DIR)/tools/aio-grab-sh4 distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/devinit distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/evremote2 distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/fp_control distclean
@@ -11,7 +11,7 @@ tools-clean:
 	-$(MAKE) -C $(APPS_DIR)/tools/libeplayer3 distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/libmme_host distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/libmme_image distclean
-	-$(MAKE) -C $(APPS_DIR)/tools/showiframe distclean
+	-$(MAKE) -C $(APPS_DIR)/tools/showiframe-sh4 distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/spf_tool distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/stfbcontrol distclean
 	-$(MAKE) -C $(APPS_DIR)/tools/streamproxy distclean
@@ -22,8 +22,8 @@ tools-clean:
 #
 # aio-grab
 #
-$(D)/tools-aio-grab: $(D)/bootstrap $(D)/libpng $(D)/libjpeg
-	set -e; cd $(APPS_DIR)/tools/aio-grab; \
+$(D)/tools-aio-grab-sh4: $(D)/bootstrap $(D)/libpng $(D)/libjpeg
+	set -e; cd $(APPS_DIR)/tools/aio-grab-sh4; \
 		$(CONFIGURE_TOOLS) CPPFLAGS="$(CPPFLAGS) -I$(DRIVER_DIR)/bpamem" \
 			--prefix= \
 		; \
@@ -120,8 +120,8 @@ $(D)/tools-libmme_image: $(D)/bootstrap
 #
 # showiframe
 #
-$(D)/tools-showiframe: $(D)/bootstrap
-	set -e; cd $(APPS_DIR)/tools/showiframe; \
+$(D)/tools-showiframe-sh4: $(D)/bootstrap
+	set -e; cd $(APPS_DIR)/tools/showiframe-sh4; \
 		$(CONFIGURE_TOOLS) \
 			--prefix= \
 		; \
@@ -202,12 +202,12 @@ $(D)/tools-wait4button: $(D)/bootstrap
 	touch $@
 
 
-TOOLS  = $(D)/tools-aio-grab
+TOOLS  = $(D)/tools-aio-grab-sh4
 TOOLS += $(D)/tools-devinit
 TOOLS += $(D)/tools-evremote2
 TOOLS += $(D)/tools-fp_control
 TOOLS += $(D)/tools-hotplug
-TOOLS += $(D)/tools-showiframe
+TOOLS += $(D)/tools-showiframe-sh4
 TOOLS += $(D)/tools-stfbcontrol
 TOOLS += $(D)/tools-streamproxy
 TOOLS += $(D)/tools-ustslave
